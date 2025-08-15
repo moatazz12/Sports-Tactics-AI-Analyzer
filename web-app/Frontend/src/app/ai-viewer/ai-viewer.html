@@ -1,0 +1,131 @@
+<div class="ai-viewer-page">
+  <!-- Header Section -->
+  <div class="header">
+    <div class="header-content">
+      <div class="page-title">
+        <h1 class="titre-principal">AI Viewer</h1>
+        <p class="sous-titre">Analyse intelligente des données tactiques</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back Button Section -->
+  <div class="bulk-upload-header">
+    <button class="back-btn" (click)="goBack()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <polyline points="15,18 9,12 15,6"/>
+      </svg>
+      Retour
+    </button>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-layout">
+    @if (videoUrl) {
+      <div class="video-card">
+        <div class="video-card-header">
+          <h3 class="video-card-title">
+            <span class="video-icon">🎥</span>
+            Vidéo d'analyse
+          </h3>
+        </div>
+        <div class="video-player-container">
+          <video #player [src]="videoUrl" controls preload="metadata" class="video-player" autoplay muted playsinline loop></video>
+        </div>
+      </div>
+    }
+
+    <div class="stats-card">
+      <div class="stats-card-header">
+        <h3 class="stats-card-title">
+          <span class="stats-icon">📊</span>
+          Statistiques IA
+        </h3>
+        <button class="refresh-btn" (click)="fetchStats()" [disabled]="isLoading">
+          <span class="refresh-icon">🔄</span>
+          {{ isLoading ? 'Chargement...' : 'Actualiser' }}
+        </button>
+      </div>
+
+      @if (uploadedFileName || expectedIdSequence) {
+        <div class="status-message hint">
+          <span class="status-icon">ℹ️</span>
+          <span>ID attendu: {{ expectedIdSequence || (uploadedFileName ? (uploadedFileName | slice:0:uploadedFileName.lastIndexOf('.')) : '') }}</span>
+        </div>
+      }
+
+      @if (isLoading) {
+        <div class="status-message loading">
+          <span class="status-icon">⏳</span>
+          <span>Analyse en cours...</span>
+        </div>
+      }
+
+      @if (error) {
+        <div class="status-message error">
+          <span class="status-icon">❌</span>
+          <span>{{ error }}</span>
+        </div>
+      }
+
+      @if (!isLoading && !error && stats) {
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-label">ID Séquence</div>
+            <div class="stat-value">{{ stats.id_sequence }}</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Joueurs détectés</div>
+            <div class="stat-value">{{ stats.nb_joueurs_detectes }}</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Possession A</div>
+            <div class="stat-value">{{ stats.possession?.equipe_A }}%</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Possession B</div>
+            <div class="stat-value">{{ stats.possession?.equipe_B }}%</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Zone ballon</div>
+            <div class="stat-value">{{ stats.zone_ballon }}</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Vitesse moy. ballon</div>
+            <div class="stat-value">{{ stats.vitesse_moyenne_ballon }}</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Passes réussies</div>
+            <div class="stat-value">{{ stats.passes_reussies }}</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Intensité pressing</div>
+            <div class="stat-value">{{ stats.intensite_pressing }}</div>
+          </div>
+          <div class="stat-item highlight">
+            <div class="stat-label">Prédiction</div>
+            <div class="stat-value prediction">{{ stats.prediction }}</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Confiance</div>
+            <div class="stat-value">{{ stats.confiance | number:'1.2-2' }}</div>
+          </div>
+        </div>
+      }
+
+      @if (!isLoading && !error && !stats) {
+        <div class="status-message empty">
+          <span class="status-icon">📭</span>
+          <div class="empty-content">
+            <span>Aucune statistique disponible pour cette vidéo.</span>
+            <div class="debug-info">
+              <strong>ID attendu:</strong> {{ expectedIdSequence || (uploadedFileName ? (uploadedFileName | slice:0:uploadedFileName.lastIndexOf('.')) : '—') }}
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+
+

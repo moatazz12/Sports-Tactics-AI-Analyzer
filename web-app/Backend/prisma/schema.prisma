@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+  datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Video {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  path       String
+  filename   String?
+  annotations Annotation[]
+}
+
+model Annotation {
+  id               String           @id @default(auto()) @map("_id") @db.ObjectId
+  id_sequence      String           @unique
+  annotation       String
+  validateur       String
+  date_annotation  DateTime?        @default(now())
+  commentaire      String
+  domicile         String?
+  visiteuse        String?
+
+  videoId          String           @db.ObjectId
+  video            Video            @relation(fields: [videoId], references: [id])
+
+  rapportAnalyses  RapportAnalyse[]
+}
+
+model RapportAnalyse {
+  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
+  id_sequence         String   @unique
+  prediction_ia       String
+  confiance           Float
+  annotation_humaine  String
+  equipe              String
+  joueurs_detectes    Int[]
+  commentaire_expert  String
+  validation          String
+
+  annotationId        String? @db.ObjectId
+  annotation          Annotation? @relation(fields: [annotationId], references: [id])
+}
+
+model User {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  username    String  @unique
+  password String
+}
+
+model Admin {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  username   String  @unique
+  fullname   String
+  email      String  @unique
+  password   String
+  phoneNumber String?
+}

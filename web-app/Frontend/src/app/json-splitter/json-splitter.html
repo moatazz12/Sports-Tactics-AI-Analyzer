@@ -1,0 +1,106 @@
+<div class="json-splitter-card">
+  <div class="json-splitter-header">
+    <h2 class="json-splitter-title">
+      <span class="json-splitter-title-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#222" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 48 48" style="vertical-align:middle;">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h2"/>
+          <path d="M14 2v20a2 2 0 0 0 2 2h2"/>
+          <path d="M20 2v20a2 2 0 0 0 2 2h2"/>
+          <path d="M26 2v20a2 2 0 0 0 2 2h2"/>
+          <path d="M32 2v20a2 2 0 0 0 2 2h2"/>
+          <path d="M38 2v20a2 2 0 0 0 2 2h2"/>
+        </svg>
+      </span>
+      Séparateur d'Annotations JSON
+    </h2>
+    <p class="json-splitter-subtitle">Divisez un fichier JSON d'annotations en fichiers individuels</p>
+  </div>
+
+  <!-- Processing Status Messages -->
+  <div class="processing-status-display">
+    <p class="processing-status-message">{{ getProcessingStatusMessage() }}</p>
+  </div>
+
+  <div *ngIf="processingError" class="processing-status error">
+    <p>{{ processingError }}</p>
+  </div>
+  
+  <div *ngIf="processingSuccess" class="processing-status success">
+    <p>{{ processedFiles.length }} fichiers créés avec succès!</p>
+  </div>
+
+  <!-- File Selection Section -->
+  <div *ngIf="!selectedFile" class="file-selection-section">
+    <label class="json-upload-dropzone" [class.disabled]="isProcessing">
+      <input type="file" accept=".json,application/json" class="json-upload-input" (change)="onFileSelected($event)" [disabled]="isProcessing">
+      <span class="json-upload-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 48 48">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h2"/>
+          <path d="M14 2v20a2 2 0 0 0 2 2h2"/>
+          <path d="M20 2v20a2 2 0 0 0 2 2h2"/>
+          <path d="M26 2v20a2 2 0 0 0 2 2h2"/>
+          <path d="M32 2v20a2 2 0 0 0 2 2h2"/>
+          <path d="M38 2v20a2 2 0 0 0 2 2h2"/>
+        </svg>
+      </span>
+      <span class="json-upload-text">
+        {{ isProcessing ? 'Traitement en cours...' : 'Cliquez pour sélectionner un fichier d\'annotations JSON' }}
+      </span>
+    </label>
+  </div>
+
+  <!-- File Processing Section -->
+  <div *ngIf="selectedFile" class="file-processing-section">
+    <div class="file-info">
+      <h3>Fichier sélectionné</h3>
+      <p class="file-name">{{ fileName }}</p>
+    </div>
+    
+    <div class="processing-actions">
+      <button 
+        type="button" 
+        class="btn btn-primary process-btn" 
+        (click)="processJsonFile()" 
+        [disabled]="isProcessingDisabled()">
+        <span *ngIf="!isProcessing">Traiter le fichier</span>
+        <span *ngIf="isProcessing">Traitement en cours...</span>
+      </button>
+      
+      <button 
+        type="button" 
+        class="btn btn-secondary cancel-btn" 
+        (click)="clearSelection()" 
+        [disabled]="isProcessing">
+        Annuler
+      </button>
+    </div>
+  </div>
+
+  <!-- Results Section -->
+  <div *ngIf="processedFiles.length > 0" class="results-section">
+    <div class="results-header">
+      <h3>Fichiers générés ({{ processedFiles.length }})</h3>
+      <button 
+        type="button" 
+        class="btn btn-success download-all-btn" 
+        (click)="downloadAllFiles()">
+        Télécharger tous les fichiers
+      </button>
+    </div>
+    
+    <div class="files-list">
+      <div *ngFor="let file of processedFiles" class="file-item">
+        <div class="file-info">
+          <span class="file-name">{{ file.filename }}</span>
+          <span class="file-size">{{ file.content.length }} caractères</span>
+        </div>
+        <button 
+          type="button" 
+          class="btn btn-outline download-single-btn" 
+          (click)="downloadSingleFile(file.filename, file.content)">
+          Télécharger
+        </button>
+      </div>
+    </div>
+  </div>
+</div> 

@@ -1,0 +1,16 @@
+{
+    "statistiques": {
+        "id_sequence": "manchvsplymo_sequ10",
+        "nb_joueurs_detectes": 19,
+        "possession": {
+            "equipe_A": 88.4,
+            "equipe_B": 11.6
+        },
+        "zone_ballon": "Attaque",
+        "vitesse_moyenne_ballon": 797.8,
+        "passes_reussies": 10,
+        "intensite_pressing": 0,
+        "prediction": "bloc_bas",
+        "confiance": 58.28
+    }
+}

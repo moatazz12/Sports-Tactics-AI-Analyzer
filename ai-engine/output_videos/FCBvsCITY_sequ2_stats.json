@@ -1,0 +1,16 @@
+{
+    "statistiques": {
+        "id_sequence": "FCBvsCITY_sequ2",
+        "nb_joueurs_detectes": 17,
+        "possession": {
+            "equipe_A": 59.4,
+            "equipe_B": 40.6
+        },
+        "zone_ballon": "Milieu",
+        "vitesse_moyenne_ballon": 1324.52,
+        "passes_reussies": 2,
+        "intensite_pressing": 0.12,
+        "prediction": "pressing_haut",
+        "confiance": 99.0
+    }
+}

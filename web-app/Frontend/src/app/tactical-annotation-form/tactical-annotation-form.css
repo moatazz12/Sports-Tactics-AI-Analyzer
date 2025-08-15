@@ -1,0 +1,478 @@
+.tactical-annotation-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1.5px solid #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 24px 20px 24px 20px;
+  width: 100%;
+  max-width: 500px;
+  min-height: 420px;
+  margin: 8px auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: slideInFromRight 0.6s ease-out;
+}
+
+.tactical-annotation-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.tactical-annotation-header {
+  margin-bottom: 16px;
+  animation: fadeInUp 0.4s ease-out 0.1s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tactical-annotation-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 2px;
+  transition: color 0.3s ease;
+}
+
+.tactical-annotation-card:hover .tactical-annotation-title {
+  color: #1f2937;
+}
+
+.tactical-annotation-subtitle {
+  color: #6b7280;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+
+/* Submit Status Messages */
+.submit-status {
+  margin: 8px 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  text-align: center;
+  animation: fadeInUp 0.4s ease-out;
+}
+
+.submit-status.success {
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #10b981;
+  animation: successPulse 0.6s ease-out;
+}
+
+@keyframes successPulse {
+  0% {
+    transform: scale(0.95);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.submit-status.error {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #ef4444;
+  animation: errorShake 0.5s ease-out;
+}
+
+@keyframes errorShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.tactical-annotation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+  min-height: 0;
+  animation: fadeInScale 0.5s ease-out 0.2s both;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.tactical-annotation-form .row {
+  display: flex;
+  gap: 18px;
+  animation: fadeInUp 0.4s ease-out 0.3s both;
+}
+
+.tactical-annotation-form .row > * {
+  flex: 1;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2px;
+  animation: fadeInUp 0.4s ease-out;
+}
+
+.form-group:nth-child(1) { animation-delay: 0.4s; }
+.form-group:nth-child(2) { animation-delay: 0.5s; }
+.form-group:nth-child(3) { animation-delay: 0.6s; }
+.form-group:nth-child(4) { animation-delay: 0.7s; }
+.form-group:nth-child(5) { animation-delay: 0.8s; }
+
+.form-group label {
+  margin-bottom: 6px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.form-group:focus-within label {
+  color: #1f2937;
+}
+
+.tactical-annotation-form .row > .form-group {
+  flex: 1;
+}
+
+.tactical-annotation-form input,
+.tactical-annotation-form textarea {
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+  padding: 9px 12px;
+  font-size: 0.95rem;
+  background: #fafbfc;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.tactical-annotation-form input:focus,
+.tactical-annotation-form textarea:focus {
+  border: 1.5px solid #111;
+  outline: none;
+  background: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.tactical-annotation-form input:hover,
+.tactical-annotation-form textarea:hover {
+  border-color: #9ca3af;
+  background: #f9fafb;
+}
+
+.tactical-annotation-form textarea {
+  min-height: 60px;
+  resize: vertical;
+}
+
+.tactical-annotation-form button[type="submit"] {
+  width: 100%;
+  background: #111;
+  color: #fff;
+  padding: 10px 0;
+  border-radius: 7px;
+  font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  margin-top: 8px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.4s ease-out 0.9s both;
+}
+
+.tactical-annotation-form button[type="submit"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.tactical-annotation-form button[type="submit"]:hover::before {
+  left: 100%;
+}
+
+.tactical-annotation-form button[type="submit"]:hover:not(:disabled) {
+  background: #222;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Video Info Display */
+.video-info {
+  margin-top: 16px;
+  padding: 12px;
+  background: #f3f4f6;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  animation: fadeInUp 0.4s ease-out;
+  transition: all 0.3s ease;
+}
+
+.video-info:hover {
+  background: #e5e7eb;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.video-info p {
+  margin: 4px 0;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.main-layout {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 32px;
+  margin: 40px auto;
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 16px;
+}
+
+.main-layout .video-upload-card,
+.main-layout .tactical-annotation-card {
+  flex: 1;
+  max-width: 500px;
+  width: 500px;
+  padding: 24px 20px 24px 20px;
+}
+
+@media (max-width: 900px) {
+  .main-layout {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+  
+  .main-layout .video-upload-card,
+  .main-layout .tactical-annotation-card {
+    width: 100%;
+    max-width: 500px;
+    padding: 24px 20px 24px 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .tactical-annotation-card {
+    padding: 16px 6px 16px 6px;
+  }
+  .tactical-annotation-form .row {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* Video Status Display */
+.video-status-display {
+  margin-bottom: 16px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  animation: fadeInUp 0.4s ease-out;
+}
+
+.video-status-message {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Validation Hint */
+.validation-hint {
+  margin-top: 16px;
+  padding: 12px;
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  animation: fadeInUp 0.4s ease-out;
+}
+
+.validation-hint p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #92400e;
+  text-align: center;
+}
+
+/* Enhanced disabled state styling */
+.tactical-annotation-form input:disabled,
+.tactical-annotation-form textarea:disabled {
+  background: #f1f5f9;
+  color: #64748b;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.tactical-annotation-form input:disabled:focus,
+.tactical-annotation-form textarea:disabled:focus {
+  border-color: #cbd5e1;
+  transform: none;
+  box-shadow: none;
+}
+
+.tactical-annotation-form button[type="submit"]:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.tactical-annotation-form button[type="submit"]:disabled::before {
+  display: none;
+}
+
+/* Button Base Classes */
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #3b82f6;
+  border: 2px solid #3b82f6;
+}
+
+.btn-outline:hover:not(:disabled) {
+  background: #3b82f6;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* Bulk Upload Section */
+.bulk-upload-section {
+  margin-top: 32px;
+  text-align: center;
+}
+
+.bulk-upload-divider {
+  position: relative;
+  margin: 24px 0;
+  text-align: center;
+}
+
+.bulk-upload-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #e2e8f0;
+}
+
+.bulk-upload-divider span {
+  background: #ffffff;
+  padding: 0 16px;
+  color: #64748b;
+  font-size: 0.9rem;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+}
+
+.bulk-upload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #3b82f6;
+  background: transparent;
+  border: 2px solid #3b82f6;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.bulk-upload-btn:hover {
+  background: #3b82f6;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.bulk-upload-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.bulk-upload-btn:hover svg {
+  transform: scale(1.1);
+}

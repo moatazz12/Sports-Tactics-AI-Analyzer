@@ -1,0 +1,16 @@
+{
+    "statistiques": {
+        "id_sequence": "astonvscarddiff_sequ1 (1)",
+        "nb_joueurs_detectes": 18,
+        "possession": {
+            "equipe_A": 13.8,
+            "equipe_B": 86.2
+        },
+        "zone_ballon": "Milieu",
+        "vitesse_moyenne_ballon": 927.45,
+        "passes_reussies": 5,
+        "intensite_pressing": 0,
+        "prediction": "pressing_haut",
+        "confiance": 58.28
+    }
+}

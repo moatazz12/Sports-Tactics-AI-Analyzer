@@ -1,0 +1,35 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>Bienvenue</h2>
+    <p class="subtitle">Connectez-vous pour accéder à l'outil d'analyse tactique</p>
+
+    <!-- Login Error Message -->
+    <div *ngIf="loginError" class="login-error">
+      <p>{{ loginError }}</p>
+    </div>
+
+    <form (ngSubmit)="onLogin()">
+      <input 
+        type="text" 
+        placeholder="Nom d'utilisateur" 
+        required
+        [(ngModel)]="loginData.username"
+        name="username"
+        [disabled]="isLoggingIn">
+      
+      <input 
+        type="password" 
+        placeholder="Mot de passe" 
+        required
+        [(ngModel)]="loginData.password"
+        name="password"
+        [disabled]="isLoggingIn">
+      
+      <button 
+        type="submit"
+        [disabled]="isLoggingIn">
+        {{ isLoggingIn ? 'Connexion en cours...' : 'Se connecter' }}
+      </button>
+    </form>
+  </div>
+</div>

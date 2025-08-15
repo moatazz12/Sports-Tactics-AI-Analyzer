@@ -1,0 +1,16 @@
+{
+    "statistiques": {
+        "id_sequence": "Match02_seq_08",
+        "nb_joueurs_detectes": 9,
+        "possession": {
+            "equipe_A": 56.4,
+            "equipe_B": 43.6
+        },
+        "zone_ballon": "Milieu",
+        "vitesse_moyenne_ballon": 2000.87,
+        "passes_reussies": 5,
+        "intensite_pressing": 0,
+        "prediction": "bloc_bas",
+        "confiance": 57.82
+    }
+}

@@ -1,0 +1,37 @@
+[
+  {
+    "id_sequence": "mnc-che1",
+    "annotation": "pressing_haut",
+    "validateur": "mr Chokri",
+    "date_annotation": "2025-07-15",
+    "commentaire": "pressing très claire lateral (coté droite)"
+  },
+  {
+    "id_sequence": "MCI-om2",
+    "annotation": "bloc_bas",
+    "validateur": "mr Dupont",
+    "date_annotation": "2025-07-16",
+    "commentaire": "défense bien organisée en bloc bas"
+  },
+  {
+    "id_sequence": "lyon-nice3",
+    "annotation": "transition_rapide",
+    "validateur": "mr Martin",
+    "date_annotation": "2025-07-17",
+    "commentaire": "contre-attaque efficace après récupération"
+  },
+  {
+    "id_sequence": "marseille-bordeaux4",
+    "annotation": "jeu_position",
+    "validateur": "mr Bernard",
+    "date_annotation": "2025-07-18",
+    "commentaire": "maintien de la possession avec jeu de position"
+  },
+  {
+    "id_sequence": "monaco-lille5",
+    "annotation": "corner_strategique",
+    "validateur": "mr Leroy",
+    "date_annotation": "2025-07-19",
+    "commentaire": "but marqué sur corner bien exécuté"
+  }
+] 

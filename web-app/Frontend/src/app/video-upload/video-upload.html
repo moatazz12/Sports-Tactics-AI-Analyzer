@@ -1,0 +1,83 @@
+<div class="video-upload-card">
+  <div class="video-upload-header">
+    <h2 class="video-upload-title">
+      <span class="video-upload-title-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#222" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 48 48" style="vertical-align:middle;">
+          <path d="M24 32V12"/>
+          <path d="M16 20l8-8 8 8"/>
+          <path d="M8 36v2a2 2 0 0 0 2 2h28a2 2 0 0 0 2-2v-2"/>
+        </svg>
+      </span>
+      Séquence Vidéo
+    </h2>
+    <p class="video-upload-subtitle">Uploadez une séquence de 3-7 secondes</p>
+  </div>
+  
+  <!-- Upload Status Messages -->
+  <div *ngIf="isUploading" class="upload-status uploading">
+    <p>Upload en cours...</p>
+  </div>
+  
+  <div *ngIf="uploadError" class="upload-status error">
+    <p>{{ uploadError }}</p>
+  </div>
+  
+  <div *ngIf="uploadSuccess && uploadedVideo" class="upload-status success">
+    <p>Vidéo uploadée avec succès!</p>
+    <p *ngIf="uploadedVideo.filename">Fichier: {{ uploadedVideo.filename }}</p>
+  </div>
+
+  <!-- Video Preview Section -->
+  <div *ngIf="videoPreviewUrl && selectedFile" class="video-preview-section">
+    <div class="video-preview-header">
+      <h3>Aperçu de la vidéo</h3>
+      <p class="file-info">{{ fileName }}</p>
+    </div>
+    
+    <div class="video-player-container">
+      <video 
+        class="video-preview-player" 
+        [src]="videoPreviewUrl" 
+        controls 
+        preload="metadata"
+        width="100%"
+        height="auto">
+        Votre navigateur ne supporte pas la lecture de vidéos.
+      </video>
+    </div>
+    
+    <div class="video-actions">
+      <button 
+        type="button" 
+        class="btn btn-primary upload-btn" 
+        (click)="uploadVideo()" 
+        [disabled]="isUploadDisabled()">
+        <span *ngIf="!isUploading">Uploader la vidéo</span>
+        <span *ngIf="isUploading">Upload en cours...</span>
+      </button>
+      
+      <button 
+        type="button" 
+        class="btn btn-secondary cancel-btn" 
+        (click)="cancelUpload()" 
+        [disabled]="isUploading">
+        Annuler
+      </button>
+    </div>
+  </div>
+
+  <!-- File Selection Dropzone (only show when no video is selected) -->
+  <label *ngIf="!selectedFile" class="video-upload-dropzone" [class.disabled]="isUploading">
+    <input type="file" accept="video/*" class="video-upload-input" (change)="onFileSelected($event)" [disabled]="isUploading">
+    <span class="video-upload-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 48 48">
+        <path d="M24 32V12"/>
+        <path d="M16 20l8-8 8 8"/>
+        <path d="M8 36v2a2 2 0 0 0 2 2h28a2 2 0 0 0 2-2v-2"/>
+      </svg>
+    </span>
+    <span class="video-upload-text">
+      {{ isUploading ? 'Upload en cours...' : 'Cliquez pour sélectionner une vidéo' }}
+    </span>
+  </label>
+</div>

@@ -1,0 +1,68 @@
+{
+    "results": [
+        {
+            "statistiques": {
+                "id_sequence": "astonvscarddiff_sequ1 (1)",
+                "nb_joueurs_detectes": 18,
+                "possession": {
+                    "equipe_A": 13.8,
+                    "equipe_B": 86.2
+                },
+                "zone_ballon": "Milieu",
+                "vitesse_moyenne_ballon": 927.45,
+                "passes_reussies": 5,
+                "intensite_pressing": 0,
+                "prediction": "pressing_haut",
+                "confiance": 58.28
+            }
+        },
+        {
+            "statistiques": {
+                "id_sequence": "FCBvsCITY_sequ2",
+                "nb_joueurs_detectes": 17,
+                "possession": {
+                    "equipe_A": 59.4,
+                    "equipe_B": 40.6
+                },
+                "zone_ballon": "Milieu",
+                "vitesse_moyenne_ballon": 1324.52,
+                "passes_reussies": 2,
+                "intensite_pressing": 0.12,
+                "prediction": "pressing_haut",
+                "confiance": 99.0
+            }
+        },
+        {
+            "statistiques": {
+                "id_sequence": "manchvsplymo_sequ10",
+                "nb_joueurs_detectes": 19,
+                "possession": {
+                    "equipe_A": 88.4,
+                    "equipe_B": 11.6
+                },
+                "zone_ballon": "Attaque",
+                "vitesse_moyenne_ballon": 797.8,
+                "passes_reussies": 10,
+                "intensite_pressing": 0,
+                "prediction": "bloc_bas",
+                "confiance": 58.28
+            }
+        },
+        {
+            "statistiques": {
+                "id_sequence": "Match02_seq_08",
+                "nb_joueurs_detectes": 9,
+                "possession": {
+                    "equipe_A": 56.4,
+                    "equipe_B": 43.6
+                },
+                "zone_ballon": "Milieu",
+                "vitesse_moyenne_ballon": 2000.87,
+                "passes_reussies": 5,
+                "intensite_pressing": 0,
+                "prediction": "bloc_bas",
+                "confiance": 57.82
+            }
+        }
+    ]
+}

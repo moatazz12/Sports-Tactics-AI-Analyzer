@@ -1,0 +1,258 @@
+<div class="bulk-upload-page">
+  <div class="bulk-upload-header">
+    <button class="back-btn" (click)="goBack()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <polyline points="15,18 9,12 15,6"/>
+      </svg>
+      Retour
+    </button>
+    <h1 class="bulk-upload-title">Upload en lot</h1>
+  </div>
+
+  <div class="bulk-upload-content">
+    <!-- JSON Splitter Section -->
+    <div class="json-splitter-section">
+      <div class="section-header">
+        <h2>Étape 1: Séparateur JSON</h2>
+        <p>Divisez votre fichier JSON d'annotations en fichiers individuels</p>
+      </div>
+
+      <div class="json-splitter-card">
+        <!-- JSON File Selection -->
+        <div *ngIf="!selectedJsonFile" class="file-selection-area">
+          <label class="file-dropzone" [class.disabled]="isJsonProcessing">
+            <input type="file" accept=".json,application/json" class="file-input" (change)="onJsonFileSelected($event)" [disabled]="isJsonProcessing">
+            <div class="dropzone-content">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 48 48">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h2"/>
+                <path d="M14 2v20a2 2 0 0 0 2 2h2"/>
+                <path d="M20 2v20a2 2 0 0 0 2 2h2"/>
+                <path d="M26 2v20a2 2 0 0 0 2 2h2"/>
+                <path d="M32 2v20a2 2 0 0 0 2 2h2"/>
+                <path d="M38 2v20a2 2 0 0 0 2 2h2"/>
+              </svg>
+              <span>Cliquez pour sélectionner un fichier JSON</span>
+            </div>
+          </label>
+        </div>
+
+        <!-- JSON File Processing -->
+        <div *ngIf="selectedJsonFile" class="file-processing-area">
+          <div class="file-info">
+            <h3>Fichier sélectionné</h3>
+            <p>{{ jsonFileName }}</p>
+          </div>
+          
+          <div class="processing-actions">
+            <button class="btn btn-primary" (click)="processJsonFile()" [disabled]="isJsonProcessing">
+              {{ isJsonProcessing ? 'Traitement...' : 'Traiter le JSON' }}
+            </button>
+            <button class="btn btn-secondary" (click)="selectedJsonFile = null; jsonFileName = null">
+              Changer de fichier
+            </button>
+          </div>
+        </div>
+
+        <!-- JSON Processing Results -->
+        <div *ngIf="jsonProcessingError" class="status-message error">
+          <p>{{ jsonProcessingError }}</p>
+        </div>
+        
+        <div *ngIf="jsonProcessingSuccess" class="status-message success">
+          <p>{{ processedJsonFiles.length }} fichiers JSON créés avec succès!</p>
+          <div class="download-actions">
+            <button 
+              class="btn btn-primary" 
+              (click)="downloadAsZip()"
+              [disabled]="isDownloading">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7,10 12,15 17,10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              {{ isDownloading ? 'Création du ZIP...' : 'Télécharger en ZIP' }}
+            </button>
+            <button 
+              class="btn btn-outline" 
+              (click)="downloadAllJsonFiles()"
+              [disabled]="isDownloading">
+              {{ isDownloading ? 'Téléchargement en cours...' : 'Télécharger tous les fichiers' }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Processed JSON Files List -->
+        <div *ngIf="processedJsonFiles.length > 0" class="processed-files">
+          <h3>Fichiers générés ({{ processedJsonFiles.length }})</h3>
+          <div class="files-list">
+            <div *ngFor="let file of processedJsonFiles" class="file-item">
+              <div class="file-info">
+                <span class="file-name">{{ file.filename }}</span>
+                <span class="file-size">{{ file.content.length }} caractères</span>
+              </div>
+              <button 
+                class="btn btn-sm btn-outline" 
+                (click)="downloadIndividualFile(file.filename, file.content)"
+                [disabled]="isDownloading">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="7,10 12,15 17,10"/>
+                  <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Télécharger
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- File Upload Section -->
+    <div class="file-upload-section">
+      <div class="section-header">
+        <h2>Étape 2: Upload des fichiers</h2>
+        <p>Glissez-déposez ou sélectionnez vos vidéos et fichiers JSON correspondants</p>
+      </div>
+
+      <div class="file-upload-card">
+        <!-- Drag and Drop Area -->
+        <div 
+          class="drag-drop-area" 
+          [class.drag-over]="isDragOver"
+          (dragover)="onDragOver($event)"
+          (dragleave)="onDragLeave($event)"
+          (drop)="onDrop($event)">
+          
+          <div class="drag-drop-content">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 48 48">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 0 2 2h28a2 2 0 0 0 2-2v-2"/>
+              <polyline points="7,10 12,15 17,10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            <h3>Glissez-déposez vos fichiers ici</h3>
+            <p>ou</p>
+            <label class="btn btn-outline">
+              Parcourir les fichiers
+              <input type="file" multiple accept="video/*,.json" class="hidden-input" (change)="onFileSelected($event)">
+            </label>
+            <p class="file-types">Vidéos (MP4, AVI, MOV, WMV, FLV) et fichiers JSON</p>
+            <p class="file-limit" [class.limit-reached]="uploadedFiles.length >= MAX_FILES">
+              Limite: {{ uploadedFiles.length }}/{{ MAX_FILES }} fichiers
+              <span *ngIf="uploadedFiles.length >= MAX_FILES" class="limit-warning">⚠️ Limite atteinte</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Uploaded Files List -->
+        <div *ngIf="uploadedFiles.length > 0" class="uploaded-files">
+          <div class="files-header">
+            <h3>Fichiers sélectionnés ({{ uploadedFiles.length }}/{{ MAX_FILES }})</h3>
+            <button class="btn btn-secondary" (click)="clearAll()">Tout effacer</button>
+          </div>
+          
+          <div class="files-list">
+            <div *ngFor="let uploadFile of uploadedFiles; let i = index" class="file-item">
+              <div class="file-info">
+                <div class="file-icon">
+                  <svg *ngIf="uploadFile.type === 'video'" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <polygon points="23,7 16,12 23,17 23,7"/>
+                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                  </svg>
+                  <svg *ngIf="uploadFile.type === 'json'" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h2"/>
+                    <path d="M14 2v20a2 2 0 0 0 2 2h2"/>
+                    <path d="M20 2v20a2 2 0 0 0 2 2h2"/>
+                    <path d="M26 2v20a2 2 0 0 0 2 2h2"/>
+                    <path d="M32 2v20a2 2 0 0 0 2 2h2"/>
+                    <path d="M38 2v20a2 2 0 0 0 2 2h2"/>
+                  </svg>
+                </div>
+                <div class="file-details">
+                  <span class="file-name">{{ uploadFile.file.name }}</span>
+                  <span class="file-type">{{ uploadFile.type === 'video' ? 'Vidéo' : 'JSON' }}</span>
+                  <span *ngIf="uploadFile.id_sequence" class="file-match">✓ Correspondance trouvée</span>
+                </div>
+              </div>
+              <button class="remove-btn" (click)="removeFile(i)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <line x1="18" y1="6" x2="6" y2="18"/>
+                  <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upload Status -->
+        <div *ngIf="uploadError" class="status-message error">
+          <p>{{ uploadError }}</p>
+        </div>
+        
+        <div *ngIf="uploadSuccess && uploadedFiles.length > 0" class="status-message success">
+          <p>{{ uploadedFiles.length }} fichiers prêts pour l'upload en lot</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bulk Upload Processing -->
+    <div class="bulk-processing-section">
+      <div class="section-header">
+        <h2>Étape 3: Traitement en lot</h2>
+        <p>Lancez le traitement de tous vos fichiers</p>
+      </div>
+
+      <div class="bulk-processing-card">
+        <div class="processing-actions">
+          <button 
+            class="btn btn-primary btn-large" 
+            (click)="processBulkUpload()" 
+            [disabled]="isProcessing || uploadedFiles.length === 0">
+            {{ isProcessing ? 'Traitement en cours...' : 'Lancer l\'upload en lot' }}
+          </button>
+        </div>
+
+        <!-- Processing Status -->
+        <div *ngIf="processingError" class="status-message error">
+          <p>{{ processingError }}</p>
+        </div>
+        
+        <div *ngIf="processingSuccess" class="status-message success">
+          <p>Upload en lot traité avec succès!</p>
+          
+          <!-- Processing Results -->
+          <div *ngIf="processingResult" class="processing-results">
+            <div class="result-section">
+              <h4>Vidéos uploadées: {{ processingResult.videos.length }}</h4>
+              <div *ngIf="processingResult.videos.length > 0" class="result-list">
+                <div *ngFor="let video of processingResult.videos" class="result-item">
+                  <span class="result-name">{{ video.filename }}</span>
+                  <span class="result-status">✅ Succès</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="result-section">
+              <h4>Annotations créées: {{ processingResult.annotations.length }}</h4>
+              <div *ngIf="processingResult.annotations.length > 0" class="result-list">
+                <div *ngFor="let annotation of processingResult.annotations" class="result-item">
+                  <span class="result-name">{{ annotation.id_sequence }}</span>
+                  <span class="result-status">✅ Succès</span>
+                </div>
+              </div>
+            </div>
+            
+            <div *ngIf="processingResult.errors.length > 0" class="result-section">
+              <h4>Erreurs: {{ processingResult.errors.length }}</h4>
+              <div class="result-list">
+                <div *ngFor="let error of processingResult.errors" class="result-item error">
+                  <span class="result-name">{{ error.file || error.annotation || 'Fichier inconnu' }}</span>
+                  <span class="result-status">❌ {{ error.error }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

@@ -1,0 +1,49 @@
+<!-- Header with user info and logout -->
+<div class="header">
+  <div class="header-content">
+    <h1 class="titre-principal">Analyse Tactique Football</h1>
+    <div class="user-info">
+      <span>Connecté en tant que: {{ currentUser?.username }}</span>
+      <button class="logout-btn" (click)="logout()">Déconnexion</button>
+    </div>
+  </div>
+</div>
+
+<div class="bulk-upload-page">
+  <div class="bulk-upload-header">
+    <button class="back-btn" (click)="goBack()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <polyline points="15,18 9,12 15,6"/>
+      </svg>
+      Retour
+    </button>
+  </div>
+
+  <div class="history-container">
+    <p class="sous-titre">Historique d'annotations</p>
+    
+    <div class="navigation-buttons">
+      <button 
+        [class.active]="selectedHistory === 'manual'" 
+        (click)="selectHistory('manual')">
+        Annotations Manuelles
+      </button>
+      <button 
+        [class.active]="selectedHistory === 'ia'" 
+        (click)="selectHistory('ia')">
+        Annotations IA
+      </button>
+    </div>
+
+    <!-- Contenu selon sélection -->
+    <div class="history-data">
+      <ng-container *ngIf="selectedHistory === 'manual'">
+        <app-annotation></app-annotation>
+      </ng-container>
+      
+      <ng-container *ngIf="selectedHistory === 'ia'">
+        <app-rapport></app-rapport>
+      </ng-container>
+    </div>
+  </div>
+</div>

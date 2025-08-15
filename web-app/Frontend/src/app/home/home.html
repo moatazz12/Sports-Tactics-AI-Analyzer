@@ -1,0 +1,37 @@
+<!-- Header with user info and logout -->
+<div class="header">
+  <div class="header-content">
+    <h1 class="titre-principal">Analyse Tactique Football</h1>
+    <div class="user-info">
+      <span>Connecté en tant que: {{ currentUser?.username }}</span>
+      <button class="logout-btn" (click)="logout()">Déconnexion</button>
+    </div>
+  </div>
+</div>
+
+<div class="bulk-upload-header">
+  <button class="back-btn" (click)="goBackToUserhome()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+      <polyline points="15,18 9,12 15,6"></polyline>
+    </svg>
+    Retour
+  </button>
+</div>
+
+<!-- Main Content -->
+<div *ngIf="!showBulkUpload">
+  <p class="sous-titre">Annotez vos séquences vidéo pour analyser les schémas tactiques</p>
+  <div class="app-main-layout">
+    <app-video-upload (videoUploaded)="onVideoUploaded($event)"></app-video-upload>
+    <app-tactical-annotation-form 
+      [uploadedVideo]="uploadedVideo"
+      (annotationCreated)="onAnnotationCreated($event)"
+      (navigateToBulkUpload)="onNavigateToBulkUpload()">
+    </app-tactical-annotation-form>
+  </div>
+</div>
+
+<!-- Bulk Upload Page -->
+<div *ngIf="showBulkUpload">
+  <app-bulk-upload (goBackEvent)="onBackFromBulkUpload()"></app-bulk-upload>
+</div> 

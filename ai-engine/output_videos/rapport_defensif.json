@@ -1,0 +1,22 @@
+[
+    {
+        "id_sequence": "astonvscarddiff_sequ1 (1)",
+        "prediction": "pressing_haut",
+        "confiance": 58.28
+    },
+    {
+        "id_sequence": "FCBvsCITY_sequ2",
+        "prediction": "pressing_haut",
+        "confiance": 99.0
+    },
+    {
+        "id_sequence": "manchvsplymo_sequ10",
+        "prediction": "bloc_bas",
+        "confiance": 58.28
+    },
+    {
+        "id_sequence": "Match02_seq_08",
+        "prediction": "bloc_bas",
+        "confiance": 57.82
+    }
+]

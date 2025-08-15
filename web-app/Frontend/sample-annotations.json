@@ -1,0 +1,25 @@
+[
+  {
+    "id_sequence": "mnc-che1",
+    "annotation": "pressing_haut",
+    "validateur": "mr Chokri",
+    "date_annotation": "2025-01-15",
+    "commentaire": "pressing très claire lateral (coté droite)"
+  },
+  {
+    "id_sequence": "ars-liv2",
+    "annotation": "bloc_bas",
+    "validateur": "mr Chokri",
+    "date_annotation": "2025-01-15",
+    "commentaire": "défense en bloc bas efficace",
+    "domicile": "Arsenal",
+    "visiteuse": "Liverpool"
+  },
+  {
+    "id_sequence": "MCI-om3",
+    "annotation": "contre_attaque",
+    "validateur": "mr Chokri",
+    "date_annotation": "2025-01-15",
+    "commentaire": "contre-attaque rapide et efficace"
+  }
+] 

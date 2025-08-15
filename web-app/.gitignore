@@ -1,0 +1,61 @@
+# ===============================
+# 📁 Common - Root Level
+# ===============================
+
+# Ignore node_modules and dist in all folders
+**/node_modules/
+**/dist/
+**/build/
+
+# Ignore environment files
+**/.env
+**/.env.
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDEs
+.vscode/
+.idea/
+
+# ===============================
+# 🤠 Angular Specific (frontend/)
+# ===============================
+frontend/.angular/cache/
+frontend/.angular/config.json
+frontend/.angular/web.config
+frontend/.angular/tsconfig*
+frontend/.angular/tmp/
+
+# Angular CLI
+frontend/angular.json
+frontend/yarn.lock
+
+# Test and coverage
+frontend/coverage/
+frontend/test-results/
+frontend/karma-results/
+
+# ===============================
+# 🤠 NestJS Specific (backend/)
+# ===============================
+backend/.nestjs/
+backend/dist/
+backend/node_modules/
+backend/coverage/
+backend/yarn.lock
+
+# TypeScript build info
+**/*.tsbuildinfo
+
+/generated/prisma

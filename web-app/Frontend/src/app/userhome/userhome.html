@@ -1,0 +1,38 @@
+<!-- Header with user info and logout -->
+<div class="header">
+  <div class="header-content">
+    <h1 class="titre-principal">Analyse Tactique Football</h1>
+    <div class="user-info">
+      <span>Connecté en tant que: {{ currentUser?.username }}</span>
+      <button class="logout-btn" (click)="logout()">Déconnexion</button>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <p class="sous-titre">Bienvenue sur votre espace d'annotation</p>
+  
+  <div class="card-container">
+    <!-- Box 1 - Annotation IA -->
+    <div class="card">
+      <h3>Annoter avec l’IA 🤖</h3>
+      <p>Laissez l’intelligence artificielle annoter automatiquement vos vidéos.</p>
+      <button (click)="goToAutoAnnotation()">Annoter avec l’IA</button>
+    </div>
+
+    <!-- Box 2 - Annotation manuelle -->
+    <div class="card">
+      <h3>Annoter manuellement ✍️</h3>
+      <p>Ajoutez vos annotations manuellement à partir de vos propres vidéos.</p>
+      <button (click)="goToManualAnnotation()">Annoter manuellement</button>
+    </div>
+  </div>
+
+  <div class="historique-wrapper">
+  <div class="card" align="center" >
+    <h3>Historique d'annotation</h3>
+    <p>Consultez vos annotations précédemment réalisées.</p>
+    <button (click)="goToAnnotationHistory()">Voir l’historique</button>
+  </div>
+  </div>
+</div>
